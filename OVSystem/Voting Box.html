@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+            <title>Online Voting System</title>
+                <style>
+                    body {
+                        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                        background-image: url(Cordon\ Municipality.jpg); 
+                        background-size: cover;
+                        background-repeat: no-repeat;
+                        background-position: center;
+                        margin: 0;
+                        padding: 0;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        min-height: 100vh;
+                    }
+                    .box {
+                        background-color: rgba(255, 255, 255, 0.421);
+                        padding: 30px 40px;
+                        border-radius: 15px;
+                        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+                        max-width: 900px;
+                        width: 100%;
+                        text-align: center;
+                    }
+                    h2 {
+                        color: #007bff;
+                        margin-bottom: 15px;
+                    }
+                    table {
+                        width: 100%;
+                        margin: 20px 0;
+                        border-collapse: collapse;
+                    }
+                    th, td {
+                        border: 1px solid #007bff;
+                        padding: 10px;
+                        text-align: center;
+                    }
+                    th {
+                        background-color: #007bff;
+                        color: white;
+                        font-size: 18px;
+                    }
+                    td label {
+                        cursor: pointer;
+                        font-weight: 500;
+                    }
+                    input[type="checkbox"], input[type="radio"] {
+                        transform: scale(1.2);
+                        margin-right: 5px;
+                    }
+                    button {
+                        padding: 12px 25px;
+                        font-size: 16px;
+                        background-color: #28a745;
+                        color: white;
+                        border: none;
+                        border-radius: 10px;
+                        cursor: pointer;
+                        margin-top: 20px;
+                        transition: background-color 0.3s;
+                    }
+                    button:hover {
+                        background-color: #218838;
+                    }
+                    mark {
+                        background-color: #ffc107;
+                        color: #000;
+                        padding: 2px 5px;
+                        border-radius: 3px;
+                    }
+                    img {
+                        border-radius: 50%;
+                        margin-bottom: 10px;
+                    }
+                </style>
+    </head>
+<body>
+
+        <div class="box" id="Votingbox">
+            <img src="Cordon logo.jpg" alt="Voting Image" width="100" height="100">
+            <h2>Vote for Your Candidate</h2>
+            <caption><mark>Vote Wisely</mark></caption>
+
+            <table>
+                <tr><th colspan="3">Mayor Candidate</th></tr>
+                <tr>
+                    <td><label><input type="radio" name="mayor" value="Mayor 1">Mayor 1</label></td>
+                    <td><label><input type="radio" name="mayor" value="Mayor 2">Mayor 2</label></td>
+                    <td><label><input type="radio" name="mayor" value="Mayor 3">Mayor 3</label></td>
+                </tr>
+            </table>
+
+            <table>
+                <tr><th colspan="4">Vice Mayor Candidate</th></tr>
+                <tr>
+                    <td><label><input type="radio" name="viceMayor" value="Vice Mayor 1">Vice Mayor 1</label></td>
+                    <td><label><input type="radio" name="viceMayor" value="Vice Mayor 2">Vice Mayor 2</label></td>
+                    <td><label><input type="radio" name="viceMayor" value="Vice Mayor 3">Vice Mayor 3</label></td>
+                    <td><label><input type="radio" name="viceMayor" value="Vice Mayor 4">Vice Mayor 4</label></td>
+                </tr>
+            </table>
+
+            <table>
+                <tr><th colspan="4">Councilor Candidate</th></tr>
+                <tr>
+                    <td><label><input type="checkbox" name="councilor" value="Councilor 1">Councilor 1</label></td>
+                    <td><label><input type="checkbox" name="councilor" value="Councilor 2">Councilor 2</label></td>
+                    <td><label><input type="checkbox" name="councilor" value="Councilor 3">Councilor 3</label></td>
+                    <td><label><input type="checkbox" name="councilor" value="Councilor 4">Councilor 4</label></td>
+                </tr>
+                <tr>
+                    <td><label><input type="checkbox" name="councilor" value="Councilor 5">Councilor 5</label></td>
+                    <td><label><input type="checkbox" name="councilor" value="Councilor 6">Councilor 6</label></td>
+                    <td><label><input type="checkbox" name="councilor" value="Councilor 7">Councilor 7</label></td>
+                    <td><label><input type="checkbox" name="councilor" value="Councilor 8">Councilor 8</label></td>
+                </tr>
+                <tr>
+                    <td><label><input type="checkbox" name="councilor" value="Councilor 9">Councilor 9</label></td>
+                    <td><label><input type="checkbox" name="councilor" value="Councilor 10">Councilor 10</label></td>
+                    <td><label><input type="checkbox" name="councilor" value="Councilor 11">Councilor 11</label></td>
+                    <td><label><input type="checkbox" name="councilor" value="Councilor 12">Councilor 12</label></td>
+                </tr>
+            </table>
+
+            <button onclick="submitVote()">Submit Vote</button>
+        </div>
+
+<script>
+        let votedUsers = {};
+        let voteCounter = 0;
+
+        function submitVote() {
+            const mayor = document.querySelector('input[name="mayor"]:checked');
+            const viceMayor = document.querySelector('input[name="viceMayor"]:checked');
+            const councilors = document.querySelectorAll('input[name="councilor"]:checked');
+
+            if (!mayor || !viceMayor) {
+                alert("Please select a Mayor and Vice Mayor.");
+                return;
+            }
+
+            if (councilors.length < 8) {
+                alert("Please select at least 8 Councilors.");
+                return;
+            }
+
+            alert("Vote Submitted Successfully!\n" +
+                "Mayor: " + mayor.value + "\n" +
+                "Vice Mayor: " + viceMayor.value + "\n" +
+                "Councilors: " + Array.from(councilors).map(c => c.value).join(", "));
+                window.location.href = "Online Voting System.html";
+
+            voteCounter++;
+            document.getElementById("Votingbox").style.display = "none";
+        }
+</script>
+</body>
+</html>
